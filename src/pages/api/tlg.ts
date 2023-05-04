@@ -11,9 +11,9 @@ export default async function handler(
     const tgbot = process.env.NEXT_TELEGRAM_TOKEN;
     if (req.body?.message?.text === '/start' && req.body?.message?.chat?.id) {
         const message =
-            'Welcome to <i>NextJS News Channel</i> <b>' +
+            'Привет <b>' +
             req.body.message.from.first_name +
-            '</b>.%0ATo get a list of commands sends /help';
+            '</b>.';
         const ret = await fetch(
             `https://api.telegram.org/bot${tgbot}/sendMessage?chat_id=${req.body?.message?.chat?.id}&text=${message}&parse_mode=HTML`
         );

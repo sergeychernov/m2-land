@@ -1,4 +1,49 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+# Как создать проект
+
+npx create-next-app@latest .
+
+firebase experiments:enable webframeworks
+
+firebase init hosting
+(надо выбрать Set up automatic builds and deploys with GitHub? Yes)
+
+(попросит перейти на тарифный план Blaze, нужно для deploy)
+
+<https://console.firebase.google.com/project/<project-id>/usage/details>
+
+firebase deploy
+
+<https://<project-id>.web.app/api/hello>
+
+<https://<project-id>.web.app>
+
+В .github/workflows/*.yml добавить 
+```yml
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+      ...
+        env:
+          FIREBASE_CLI_EXPERIMENTS: webframeworks
+```
+
+Добавить роли:
+<https://console.cloud.google.com/iam-admin/iam?authuser=0&consoleUI=FIREBASE&hl=en&project=<project-id>>
+в GitHub Actions (sergeychernov/<project-id>)
+Api Keys Admin
+Artifact Registry Administrator
+Cloud Build Service Account
+Cloud Functions Admin
+Cloud RuntimeConfig Admin
+Firebase Admin
+Service Account User
+Service Account Key Admin
+
+Создать БД:
+<https://console.firebase.google.com/project/<project-id>/firestore>
+
+firebase init firestore
+
+npm install firebase-admin --save
 
 ## Getting Started
 
@@ -30,9 +75,3 @@ To learn more about Next.js, take a look at the following resources:
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.

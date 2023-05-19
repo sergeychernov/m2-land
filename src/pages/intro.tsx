@@ -2,6 +2,7 @@ import Image from 'next/image'
 import { Inter } from 'next/font/google'
 
 import styles from './styles.module.css';
+import Link from "next/link";
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -31,8 +32,7 @@ export default function Intro() {
                 Нужно оценить сложность задачи — для этого выбери подходящую карту.
                 Если твоя оценка будет максимально близка к средней — получишь новый квадратный метр. Если максимально далека — лишишься имеющихся «квадратов».
             </div>
-
-            <a href={'/choose-task'} className={styles.btn}>Продолжить</a>
+            <Link href={'/choose-task'} className={styles.btn}>Продолжить</Link>
         </main>
     );
 }

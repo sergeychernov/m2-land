@@ -45,6 +45,14 @@ firebase init firestore
 
 npm install firebase-admin --save
 
+### Для локальной разработки
+
+gcloud auth login
+
+gcloud config set project PROJECT_ID
+
+gcloud auth application-default login
+
 ## Getting Started
 
 First, run the development server:

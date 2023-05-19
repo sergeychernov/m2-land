@@ -19,7 +19,7 @@ export async function getServerSideProps({ params }: any) {
 }
 
 
-export default function CreateTask({ taskId }: { taskId: string }) {
+export default function Voting({ taskId }: { taskId: string }) {
     const data = useTelegramInitData()
     const [task, setTask] = useState<Task | null>(null);
     const [message, setMessage] = useState<Task | null>(null);

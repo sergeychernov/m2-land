@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import { useState } from 'react';
 
 import { taskServiceApi } from '../../services/task.service';
+import { useTelegramInitData } from '@/hooks/use-telegram-init-data';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -18,15 +19,15 @@ export async function getServerSideProps({ params }: any) {
 export default function CreateTask({ team }: { team: string }) {
     
     const [name, setName] = useState();
+    const data = useTelegramInitData()
     const handleNameChange = (event: any) => {
         setName(event.target.value);
     }
-    const username = 'egorbul';
+    const username = data.user?.usernames || '';
 
     const createTask = async (event: any) => {
         event.preventDefault();
         taskServiceApi.createTask({ name: name || '', team, username })
-
     }
 
     return (

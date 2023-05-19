@@ -17,6 +17,7 @@ export interface Task {
   team: string; // для какой команды
   name: string;
   url?: string; //задача
+  averageScore?: string; //задача
 }
 
 export interface Vote {

@@ -4,6 +4,8 @@ import { useState } from 'react';
 
 import { voteServiceApi } from '../../services/vote.service';
 
+import { taskServiceApi } from '../../services/task.service';
+
 const inter = Inter({ subsets: ['latin'] });
 
 export async function getServerSideProps({ params }: any) {
@@ -24,12 +26,20 @@ export default function CreateTask({ taskId }: { taskId: string }) {
 
     const vote = async (event: any) => {
         event.preventDefault();
-        voteServiceApi.createVote({
+        await taskServiceApi.updateTask({
+            id: taskId, data: {
+                status: 'closed',
+            }
+        })
+    }
+
+    const stop = async (event: any) => {
+        event.preventDefault();
+        await voteServiceApi.createVote({
             username: '',
             taskId,
             score
         })
-
     }
 
     return (
@@ -46,10 +56,12 @@ export default function CreateTask({ taskId }: { taskId: string }) {
                     priority
                 />
             </div>
-            <label htmlFor="name">{`Проголосуйте за задачу ${taskId}:`}</label>
+            <label htmlFor="score">{`Проголосуйте за задачу ${taskId}:`}</label>
                 <input type="text" id="score" name="score" onChange={handleScoreChange} />
-                <button onClick={vote}>Послать</button>
+            <button onClick={vote}>Послать</button>
             
+            <label>{`Завершить голосование по ${taskId}:`}</label>
+            <button onClick={stop}>Послать</button>
         </main>
     );
 }

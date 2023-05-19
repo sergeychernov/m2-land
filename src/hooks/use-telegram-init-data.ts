@@ -10,7 +10,6 @@ import { TelegramWebApps } from 'telegram-webapps-types';
  */
 export function useTelegramInitData() {
     const [data, setData] = useState<TelegramWebApps.WebAppInitData>({});
-    
 
     useEffect(() => {
         const firstLayerInitData = Object.fromEntries(
@@ -18,7 +17,7 @@ export function useTelegramInitData() {
         );
 
         const initData: Record<string, string> = {};
-
+            
         for (const key in firstLayerInitData) {
             try {
                 initData[key] = JSON.parse(firstLayerInitData[key]);
@@ -28,7 +27,7 @@ export function useTelegramInitData() {
         }
 
         setData(initData);
-    }, [data]);
+    }, []);
 
     return data;
 }

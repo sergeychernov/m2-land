@@ -17,8 +17,9 @@ export default function ChooseTask() {
     useEffect(() => {
         getTasks().then(list => {
             console.log(list);
+            // @ts-ignore
             setTasks(() => {
-                return list?.data?.map(item => {
+                return list?.data?.map((item) => {
                     return {
                         id: item.id,
                         name: item.name,
@@ -48,9 +49,9 @@ export default function ChooseTask() {
             <h1>Список голосований</h1>
 
             <>
-                {tasks.map(item => {
+                {tasks.map((item, index) => {
                     return (
-                        <div className={styles.block}>
+                        <div className={styles.block} key={index}>
                             <div className={styles.info}>{item.name}, {item.team}</div>
                             <a className={styles.btn} href={`/voting/${item.id || '1'}`}>Перейти</a>
                        </div>

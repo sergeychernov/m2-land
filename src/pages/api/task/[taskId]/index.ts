@@ -26,7 +26,14 @@ export default async function handler(
     }
   
     if (req.method === "GET") {
-        const data = {...doc.data(), id: doc.id};
+        const voteCollection = db.collection('vote');
+        const votesDocs = (await voteCollection.where("taskId", "==", doc.id).get()).docs || [];
+        const averageScore = votesDocs?.reduce((acc, doc) => {
+            acc += +(doc.data().score || 0);
+            return acc;
+        }, 0) / (votesDocs.length || 1);
+        
+        const data = { ...doc.data(), id: doc.id, averageScore };
         return res.status(200).json(data as any);
     }
   

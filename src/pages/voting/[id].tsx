@@ -36,16 +36,14 @@ export default function Voting({ taskId }: { taskId: string }) {
         setScore(event.target.value);
     }
 
-    const vote = async (event: any) => {
+    const closeTask = async (event: any) => {
         event.preventDefault();
-        await taskServiceApi.updateTask({
-            id: taskId, data: {
-                status: 'closed',
-            }
+        await taskServiceApi.closeTask({
+            id: taskId
         })
     }
 
-    const stop = async (event: any) => {
+    const vote = async (event: any) => {
         event.preventDefault();
         await voteServiceApi.createVote({
             username: data.user?.usernames || '',
@@ -54,29 +52,62 @@ export default function Voting({ taskId }: { taskId: string }) {
         });
     }
 
+    const stopVote = async (event: any) => {
+        event.preventDefault();
+        await voteServiceApi.deleteVote({
+            username: data.user?.usernames || '',
+            taskId
+        });
+        // @ts-ignore
+        setTask(prev => ({ ...prev, status: 'closed' }));
+    }
+
+
+    if (!task) {
+        return <div>loading...</div>
+    }
     return (
         <main
             className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
         >
-            {task?.name &&  <div>{ task.name}</div>}
-            <div>
-                <Image
-                    className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70]"
-                    src="/logo-large-gold.png"
-                    alt="Alice M2 Logo"
-                    width={232}
-                    height={167}
-                    priority
-                />
-            </div>
-            <label htmlFor="score">{`Проголосуйте за задачу ${task?.name || taskId}:`}</label>
-            <input type="text" id="score" name="score" onChange={handleScoreChange} />
-            <button onClick={vote}>Послать</button>
+
+          <div>
+                <div className='mb-4'>
+                    {task?.name && <div>{task.name}</div>}
+                    {task?.status == "closed" && <div className='red'>Заверешно</div>}
+                </div>
+                <div>
+                    <Image
+                        className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70]"
+                        src="/logo-large-gold.png"
+                        alt="Alice M2 Logo"
+                        width={232}
+                        height={167}
+                        priority
+                    />
+                </div>
+          </div>
+           
             
-            <button onClick={stop}>Завершить голосование</button>
+            {task?.status === "closed" && task?.averageScore && <div>Среднее значение
+                <div className='text-xl'>{ task.averageScore}</div>
+            </div>}
+
+            {task?.status !== 'closed' && 
+            <div>
+
+                <label htmlFor="score">{`Проголосуйте за задачу ${task?.name || taskId}:`}</label>
+                <input type="text" id="score" name="score" onChange={handleScoreChange} />
+                <button onClick={vote}>Поставить оценку</button>
+                
+                <button onClick={stopVote}>Снять оценку</button>
+                
+            </div>
+            }
 
 
 
+<button onClick={closeTask}>Завершить голосование</button>
         </main>
     );
 }

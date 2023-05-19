@@ -19,6 +19,9 @@ export class TaskService{
   async updateTask({ data, id}: { id: string; data: Partial<Task>}) {
     return axios.post<Task>(`/api/task/${id}`, data)
   }
+  async closeTask({  id}: { id: string;}) {
+    return axios.post<Task>(`/api/task/${id}/close`)
+  }
   async createTask(data: TaskCreateDto) {
     return axios.put<Task>(`/api/task`, data)
   }

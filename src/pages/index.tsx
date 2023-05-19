@@ -13,9 +13,10 @@ export default function Home() {
       <Link href="/intro">правила игры</Link>
       <Link href="/create-task/cms">создать задачу CMS</Link>
       <Link href="/create-task/classified">создать задачу Classified</Link>
+      <Link href="/choose-task">Список доступных голосований</Link>
 
       <Link href="/voting/B4z8q6h4gtnDsAitKb9h">Проголосуйте за задачу B4z8q6h4gtnDsAitKb9h</Link>
-      
+
     </main>
   )
 }

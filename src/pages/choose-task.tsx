@@ -23,7 +23,6 @@ export default function ChooseTask() {
                     return {
                         id: item.id,
                         name: item.name,
-                        cms: item.cms,
                         team: item.team
                     };
                 })

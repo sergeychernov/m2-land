@@ -1,13 +1,11 @@
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
-import { useTelegramInitData } from '../hooks/use-telegram-init-data';
 
 import styles from './styles.module.css';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export default function Intro() {
-    const initData = useTelegramInitData();
 
     return (
         <main

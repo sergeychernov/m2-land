@@ -5,17 +5,8 @@ import { useState } from 'react';
 import { taskServiceApi } from '../../services/task.service';
 
 const inter = Inter({ subsets: ['latin'] });
-export async function getStaticPaths() {
-    return {
-        paths: [{
-            params: { id: 'cms' }
-        }, {
-            params: { id: 'classified' }
-        }], fallback: false
-    };
-}
 
-export async function getStaticProps({ params }: any) {
+export async function getServerSideProps({ params }: any) {
     return {
         props: {
             team: params.id
@@ -52,7 +43,7 @@ export default function CreateTask({ team }: { team: string }) {
                     priority
                 />
             </div>
-                <label htmlFor="name">Название задачи:</label>
+            <label htmlFor="name">{`Название задачи для команды ${team}:`}</label>
                 <input type="text" id="name" name="name" onChange={handleNameChange} />
                 <button onClick={createTask}>Послать</button>
             

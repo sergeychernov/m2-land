@@ -15,8 +15,8 @@ export interface Task {
   username: string; //Кто начал задачу
   status: TaskStatus;
   team: string; // для какой команды
-  name?: string;
-  url: string; //задача
+  name: string;
+  url?: string; //задача
 }
 
 export interface Vote {

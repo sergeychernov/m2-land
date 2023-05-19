@@ -1,6 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import db from '@/db'
-import { UserCollection } from '@/types/db.types';
+import { User } from '@/types/db.types';
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 type Data = {

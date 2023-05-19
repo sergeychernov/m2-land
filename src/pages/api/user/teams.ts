@@ -1,6 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import db from '@/db'
-import { UserCollection } from '@/types/db.types';
+import { User } from '@/types/db.types';
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 type Data = any[];
@@ -11,14 +11,16 @@ export default async function handler(
 ) {
     if (req.method === "GET") {
         const usersCollection = db.collection('users');
-        //console.log("usersCollection", usersCollection);
-
         const users = await usersCollection.get();
-        const json: any[] = [];
-        users.forEach(async doc => {
-            json.push(doc.data());
+        let teamSet = new Set()
+        
+        users.forEach(doc => {
+            for (const team of (doc.data() as User).teams) {
+                teamSet.add(team);
+            }
         });
-        return res.status(200).json([...json]);
+        
+        return res.status(200).json(Array.from(teamSet));
     }
-    return res.status(200).json([]);
+    return res.status(404).json([{message: "route not found"}]);
 }

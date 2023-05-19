@@ -32,7 +32,7 @@ export default function Intro() {
                 Если твоя оценка будет максимально близка к средней — получишь новый квадратный метр. Если максимально далека — лишишься имеющихся «квадратов».
             </div>
 
-            <button className={styles.btn}>Продолжить</button>
+            <a href={'/choose-task'} className={styles.btn}>Продолжить</a>
         </main>
     );
 }

@@ -51,7 +51,9 @@ export default function ChooseTask() {
                 {tasks.map((item: any, index: number) => {
                     return (
                         <div className={styles.block} key={index}>
-                            <div className={styles.info}>{item?.name}, {item?.team}</div>
+                            <div className={styles.info}>
+                                {`${item?.name}, ${item?.team}`}
+                            </div>
                             <a className={styles.btn} href={`/voting/${item?.id || '1'}`}>Перейти</a>
                        </div>
                     )

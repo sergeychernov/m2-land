@@ -11,7 +11,8 @@ export default function Home() {
       className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
     >
       <Link href="/intro">правила игры</Link>
-      <Link href="/create-task">создать задачу</Link>
+      <Link href="/create-task/cms">создать задачу CMS</Link>
+      <Link href="/create-task/classified">создать задачу Classified</Link>
       
     </main>
   )

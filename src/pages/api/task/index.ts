@@ -27,7 +27,7 @@ export default async function handler(
 
         const result = [] as Task[];
         (await collection.where("team", "in", user.teams).get()).forEach(doc => {
-            result.push({ ...doc.data(), id: doc.id })
+            result.push({ ...doc.data(), id: doc.id } as any)
         });
         
         return res.status(200).json(result);

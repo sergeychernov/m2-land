@@ -26,7 +26,7 @@ export default async function handler(
     }
   
     if (req.method === "GET") {
-        const data = doc.data();
+        const data = {...doc.data(), id: doc.id};
         return res.status(200).json(data as any);
     }
   

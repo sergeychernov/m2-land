@@ -24,6 +24,17 @@
     border-radius: 50px;
     background: red;
     color: #FFF;
-    width: 200px;
+    width: 100%;
     line-height: 40px;
+    text-align: center;
+    display: block;
+}
+.block {
+    padding: 20px;
+    border: 1px dotted gray;
+    width: 100%;
+}
+.info {
+    text-align: center;
+    padding-bottom: 20px;
 }

@@ -22,7 +22,7 @@ export async function getServerSideProps({ params }: any) {
 export default function Voting({ taskId }: { taskId: string }) {
     const data = useTelegramInitData()
     const [task, setTask] = useState<Task | null>(null);
-    const [message, setMessage] = useState<Task | null>(null);
+    const [message, setMessage] = useState<string | null>(null);
     useEffect(() => {
         async function fetchData() {
             const { data } = await taskServiceApi.getTask(taskId);
@@ -40,7 +40,9 @@ export default function Voting({ taskId }: { taskId: string }) {
         event.preventDefault();
         await taskServiceApi.closeTask({
             id: taskId
-        })
+        });
+        // @ts-ignore
+        setTask(prev => ({ ...prev, status: 'closed' }));
     }
 
     const vote = async (event: any) => {
@@ -58,8 +60,6 @@ export default function Voting({ taskId }: { taskId: string }) {
             username: data.user?.usernames || '',
             taskId
         });
-        // @ts-ignore
-        setTask(prev => ({ ...prev, status: 'closed' }));
     }
 
 
@@ -102,12 +102,20 @@ export default function Voting({ taskId }: { taskId: string }) {
                 
                 <button onClick={stopVote}>Снять оценку</button>
                 
+                <button onClick={closeTask}>Завершить голосование</button>
             </div>
             }
 
+            
+            {message && 
+            <div>{ message}</div>}
 
 
-<button onClick={closeTask}>Завершить голосование</button>
         </main>
+
+       
+        
+       
+        
     );
 }

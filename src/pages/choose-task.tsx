@@ -6,13 +6,16 @@ import Link from 'next/link';
 import { taskServiceApi } from '../services/task.service';
 
 import styles from './styles.module.css';
+import { useTelegramInitData } from '@/hooks/use-telegram-init-data';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export default function ChooseTask() {
+    const data = useTelegramInitData()
     const [tasks, setTasks] = useState<any>([]);
+    const username = data.user?.usernames || '';
     const getTasks = async () => {
-        return taskServiceApi.getTasks({ username: 'egorbul' });
+        return taskServiceApi.getTasks({ username });
     };
 
     useEffect(() => {

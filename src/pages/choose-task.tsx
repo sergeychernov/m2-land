@@ -9,7 +9,7 @@ import styles from './styles.module.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export default function ChooseTask() {
-    const [tasks, setTasks] = useState([]);
+    const [tasks, setTasks] = useState<any>([]);
     const getTasks = async () => {
         return taskServiceApi.getTasks({ username: 'egorbul' });
     };
@@ -48,11 +48,11 @@ export default function ChooseTask() {
             <h1>Список голосований</h1>
 
             <>
-                {tasks.map((item, index) => {
+                {tasks.map((item: any, index: number) => {
                     return (
                         <div className={styles.block} key={index}>
-                            <div className={styles.info}>{item.name}, {item.team}</div>
-                            <a className={styles.btn} href={`/voting/${item.id || '1'}`}>Перейти</a>
+                            <div className={styles.info}>{item?.name}, {item?.team}</div>
+                            <a className={styles.btn} href={`/voting/${item?.id || '1'}`}>Перейти</a>
                        </div>
                     )
                 })}

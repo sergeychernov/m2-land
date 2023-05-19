@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import { Inter } from 'next/font/google';
+import { useState, useEffect } from 'react';
 
 import { taskServiceApi } from '../services/task.service';
 
@@ -8,13 +9,26 @@ import styles from './styles.module.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export default function ChooseTask() {
+    const [tasks, setTasks] = useState([]);
     const getTasks = async () => {
-        return taskServiceApi.getTasks({ userName: 'egorbul' });
+        return taskServiceApi.getTasks({ username: 'egorbul' });
     };
 
-    getTasks().then(item => {
-        console.log(item);
-    });
+    useEffect(() => {
+        getTasks().then(list => {
+            console.log(list);
+            setTasks(() => {
+                return list?.data?.map(item => {
+                    return {
+                        id: item.id,
+                        name: item.name,
+                        cms: item.cms,
+                        team: item.team
+                    };
+                })
+            });
+        });
+    }, []);
 
     return (
         <main
@@ -33,6 +47,16 @@ export default function ChooseTask() {
 
             <h1>Список голосований</h1>
 
+            <>
+                {tasks.map(item => {
+                    return (
+                        <div className={styles.block}>
+                            <div className={styles.info}>{item.name}, {item.team}</div>
+                            <a className={styles.btn} href={`/voting/${item.id || '1'}`}>Перейти</a>
+                       </div>
+                    )
+                })}
+            </>
         </main>
     );
 }

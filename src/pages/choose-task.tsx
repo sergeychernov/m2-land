@@ -5,6 +5,8 @@ import Link from 'next/link';
 
 import { taskServiceApi } from '../services/task.service';
 
+import { userServiceApi } from '@/services/user.service';
+
 import styles from './styles.module.css';
 import { useTelegramInitData } from '@/hooks/use-telegram-init-data';
 
@@ -13,10 +15,15 @@ const inter = Inter({ subsets: ['latin'] });
 export default function ChooseTask() {
     const data = useTelegramInitData()
     const [tasks, setTasks] = useState<any>([]);
-    const username = data.user?.usernames || '';
+    const [teams, setTeams] = useState<string[]>([]);
+    const username = data.user?.usernames || 'sergeychernov1982';
     const getTasks = async () => {
         return taskServiceApi.getTasks({ username });
     };
+
+    const getUser = async () => {
+        return userServiceApi.getUser(username);
+    }
 
     useEffect(() => {
         getTasks().then(list => {
@@ -30,6 +37,14 @@ export default function ChooseTask() {
                         team: item.team
                     };
                 })
+            });
+        });
+    }, []);
+    useEffect(() => {
+        getUser().then(list => {
+            // @ts-ignore
+            setTeams(() => {
+                return list?.data?.teams
             });
         });
     }, []);
@@ -60,6 +75,14 @@ export default function ChooseTask() {
                             </div>
                             <Link className={styles.btn} href={`/voting/${item?.id || '1'}`}>Перейти</Link>
                        </div>
+                    )
+                })}
+            </>
+            <h2>Список команд:</h2>
+            <>
+                {teams.map((team: string, index: number) => {
+                    return (  
+                        <Link key={team} className={styles.btn} href={`/create-task/${team}`}>{`Создать ${team}`}</Link>
                     )
                 })}
             </>

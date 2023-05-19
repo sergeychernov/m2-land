@@ -14,7 +14,7 @@ export default async function handler(
 
     // Создание
     if (req.method === "PUT") {
-        const result = await collection.add(req.body);
+        const result = await collection.add({...req.body, status: "opened"});
         return res.status(200).json(result as any);
     }
 

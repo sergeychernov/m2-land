@@ -8,7 +8,7 @@ export interface User {
   teams: string[];
 }
 
-type TaskStatus = "opened" | "closed"
+export type TaskStatus = "opened" | "closed"
 
 export interface Task {
   id: number;

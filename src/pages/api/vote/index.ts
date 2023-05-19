@@ -14,6 +14,11 @@ export default async function handler(
 
     // Человек проголосовал
     if (req.method === "PUT") {
+        const { taskId, username } = req.body;
+        const votes = await collection.where("taskId", "==", taskId).where("username", "==", username).get();
+        if (!votes.empty) {
+            return res.status(400).json({message: "Уже голосовали"} as any);
+        }
         const result = await collection.add(req.body);
         return res.status(200).json(result as any);
     }

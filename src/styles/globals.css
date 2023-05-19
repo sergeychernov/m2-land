@@ -29,3 +29,10 @@ body {
 input {
   color: black;
 }
+
+
+button{
+  padding: 16px 20px;
+  background: white;
+  color: black;
+}

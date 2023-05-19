@@ -82,7 +82,7 @@ export default function ChooseTask() {
             <>
                 {teams.map((team: string, index: number) => {
                     return (  
-                        <Link key={team} className={styles.btn} href={`/create-task/${team}`}>{`Создать ${team}`}</Link>
+                        <Link key={team} className={styles.btn} href={`/create-task/${team}`}>{`Создать задачу в ${team}`}</Link>
                     )
                 })}
             </>

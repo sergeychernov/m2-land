@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { Inter } from 'next/font/google';
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 
 import { taskServiceApi } from '../services/task.service';
 
@@ -54,7 +55,7 @@ export default function ChooseTask() {
                             <div className={styles.info}>
                                 {`${item?.name}, ${item?.team}`}
                             </div>
-                            <a className={styles.btn} href={`/voting/${item?.id || '1'}`}>Перейти</a>
+                            <Link className={styles.btn} href={`/voting/${item?.id || '1'}`}>Перейти</Link>
                        </div>
                     )
                 })}

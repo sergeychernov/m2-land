@@ -1,4 +1,4 @@
-export interface UserCollection {
+export interface User {
   id: number;
   first_name: string;
   username: string;
@@ -10,7 +10,7 @@ export interface UserCollection {
 
 type TaskStatus = "opened" | "closed"
 
-export interface TaskCollection {
+export interface Task {
   id: number;
   userId: number; //Кто начал задачу
   status: TaskStatus;
@@ -19,7 +19,7 @@ export interface TaskCollection {
   url: string; //задача
 }
 
-export interface VoteCollection {
+export interface Vote {
   id: number;
   userId: number; //Кто начал задачу
   taskId: number;

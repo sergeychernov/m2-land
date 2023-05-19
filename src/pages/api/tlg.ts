@@ -6,12 +6,12 @@ import { TelegramApi } from '@/services/telegram-api';
 type Data = string;
 
 
+const telegramApi = new TelegramApi();
+
 export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse<Data>
 ) {
-    const tgbot = process.env.NEXT_TELEGRAM_TOKEN;
-    const telegramApi = new TelegramApi(tgbot as string)
     if (req.body?.message?.text === '/start' && req.body?.message?.chat?.id) {
         const usersCollection = db.collection('users');
 

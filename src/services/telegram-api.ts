@@ -3,8 +3,8 @@ import qs from 'qs';
 export class TelegramApi{
   private tgbot: string;
 
-  constructor(tgbot: string) {
-    this.tgbot = tgbot;
+  constructor() {
+    this.tgbot = process.env.NEXT_TELEGRAM_TOKEN as string;
   }
 
   async sendMessage(props: Record<string, any>) {

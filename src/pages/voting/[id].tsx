@@ -5,8 +5,10 @@ import { useEffect, useState } from 'react';
 import { voteServiceApi } from '../../services/vote.service';
 
 import { taskServiceApi } from '../../services/task.service';
-import { Task } from '@/types/db.types';
+import { Task, User } from '@/types/db.types';
 import { useTelegramInitData } from '@/hooks/use-telegram-init-data';
+import { messageServiceApi } from '@/services/message.service';
+import { userServiceApi } from '@/services/user.service';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -22,14 +24,37 @@ export async function getServerSideProps({ params }: any) {
 export default function Voting({ taskId }: { taskId: string }) {
     const data = useTelegramInitData()
     const [task, setTask] = useState<Task | null>(null);
+    const [user, setUser] = useState<User | null>(null);
     const [message, setMessage] = useState<string | null>(null);
+
+    const username = data.user?.usernames;
+    
     useEffect(() => {
         async function fetchData() {
-            const { data } = await taskServiceApi.getTask(taskId);
-            setTask(data)
+            
+            const { data: taskData} = await taskServiceApi.getTask(taskId);
+            setTask(taskData);
+
+            if (username) {
+                const { data: userData } = await userServiceApi.getUser(username);
+                setUser(userData)
+            }
         }
         fetchData();
-    }, [taskId]);
+    }, [taskId, username]);
+
+    useEffect(() => {
+        async function fetchData() {
+            if (user) {
+                const {data: newMessage} = await messageServiceApi.getMessage({ type: 'up', scores: +user.score });
+                setMessage(newMessage);
+            }
+        }
+        if (task?.status == "closed" && user) {
+            fetchData();
+        }
+       
+    }, [user, task]);
     
     const [score, setScore] = useState(0);
     const handleScoreChange = (event: any) => {
@@ -48,7 +73,7 @@ export default function Voting({ taskId }: { taskId: string }) {
     const vote = async (event: any) => {
         event.preventDefault();
         await voteServiceApi.createVote({
-            username: data.user?.usernames || '',
+            username: username || '',
             taskId,
             score
         });
@@ -57,7 +82,7 @@ export default function Voting({ taskId }: { taskId: string }) {
     const stopVote = async (event: any) => {
         event.preventDefault();
         await voteServiceApi.deleteVote({
-            username: data.user?.usernames || '',
+            username: username || '',
             taskId
         });
     }

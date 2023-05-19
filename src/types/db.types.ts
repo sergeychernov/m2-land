@@ -1,5 +1,5 @@
 export interface User {
-  id: number;
+  id: number;//telegram id
   first_name: string;
   username: string;
   is_bot: boolean;
@@ -12,9 +12,9 @@ type TaskStatus = "opened" | "closed"
 
 export interface Task {
   id: number;
-  userId: number; //Кто начал задачу
+  username: string; //Кто начал задачу
   status: TaskStatus;
-  team: string;
+  team: string; // для какой команды
   name?: string;
   url: string; //задача
 }

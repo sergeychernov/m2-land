@@ -21,8 +21,8 @@ export interface Task {
 
 export interface Vote {
   id: number;
-  userId: number; //Кто начал задачу
-  taskId: number;
+  username: string; //человек, который проголосовал
+  taskId: string;
   score: number;
   x2?: boolean;
 }

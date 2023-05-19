@@ -10,6 +10,14 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: npm ci && npm run build
+      - name: Make envfile
+        uses: SpicyPizza/create-envfile@v1
+        with:
+          envkey_TEST_SECRET: ${{ secrets.TEST_SECRET }}
+          envkey_TEST_ENV: ${{ vars.TEST_ENV }}
+          envkey_NEXT_TELEGRAM_TOKEN: ${{ vars.NEXT_TELEGRAM_TOKEN }}
+          file_name: .env.local
+          directory: ./
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'

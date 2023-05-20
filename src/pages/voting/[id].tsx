@@ -27,12 +27,12 @@ export default function Voting({ taskId }: { taskId: string }) {
     const [user, setUser] = useState<User | null>(null);
     const [message, setMessage] = useState<string | null>(null);
 
-    const username = data.user?.username;
+    const username = data.user?.username || 'sergeychernov1982';
     
     useEffect(() => {
         async function fetchData() {
             
-            const { data: taskData} = await taskServiceApi.getTask(taskId);
+            const { data: taskData } = await taskServiceApi.getTask(taskId);
             setTask(taskData);
 
             if (username) {
@@ -46,6 +46,7 @@ export default function Voting({ taskId }: { taskId: string }) {
     useEffect(() => {
         async function fetchData() {
             if (user) {
+                console.log(user);
                 const {data: newMessage} = await messageServiceApi.getMessage({ type: 'up', scores: +user.score });
                 setMessage(newMessage);
             }
@@ -99,17 +100,7 @@ export default function Voting({ taskId }: { taskId: string }) {
           <div>
                 <div className='mb-4'>
                     {task?.name && <div>{task.name}</div>}
-                    {task?.status == "closed" && <div className='red'>Заверешно</div>}
-                </div>
-                <div>
-                    <Image
-                        className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70]"
-                        src="/logo-large-gold.png"
-                        alt="Alice M2 Logo"
-                        width={232}
-                        height={167}
-                        priority
-                    />
+                    {task?.status == "closed" && <div className='red'>Завершено</div>}
                 </div>
           </div>
            

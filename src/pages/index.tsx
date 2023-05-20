@@ -20,6 +20,7 @@ export default function Home() {
           height={167}
           priority
       />
+      <Link href="/telegram">Telegram</Link>
       <Link href="/intro">Правила игры</Link>
       <Link href="/create-task/cms">Создать задачу CMS</Link>
       <Link href="/create-task/classified">Создать задачу Classified</Link>

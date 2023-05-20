@@ -23,7 +23,7 @@ export default function CreateTask({ team }: { team: string }) {
     const handleNameChange = (event: any) => {
         setName(event.target.value);
     }
-    const username = data.user?.usernames || '';
+    const username = data.user?.username || '';
 
     const createTask = async (event: any) => {
         event.preventDefault();

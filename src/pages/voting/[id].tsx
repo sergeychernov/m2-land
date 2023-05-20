@@ -27,7 +27,7 @@ export default function Voting({ taskId }: { taskId: string }) {
     const [user, setUser] = useState<User | null>(null);
     const [message, setMessage] = useState<string | null>(null);
 
-    const username = data.user?.usernames;
+    const username = data.user?.username;
     
     useEffect(() => {
         async function fetchData() {

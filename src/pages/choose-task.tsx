@@ -16,7 +16,8 @@ export default function ChooseTask() {
     const data = useTelegramInitData()
     const [tasks, setTasks] = useState<any>([]);
     const [teams, setTeams] = useState<string[]>([]);
-    const username = data.user?.usernames || 'sergeychernov1982';
+    const username = data.user?.username || 'sergeychernov1982';
+    
     const getTasks = async () => {
         return taskServiceApi.getTasks({ username });
     };

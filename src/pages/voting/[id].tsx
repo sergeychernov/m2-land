@@ -46,7 +46,6 @@ export default function Voting({ taskId }: { taskId: string }) {
     useEffect(() => {
         async function fetchData() {
             if (user) {
-                console.log(user);
                 const {data: newMessage} = await messageServiceApi.getMessage({ type: 'up', scores: +user.score });
                 setMessage(newMessage);
             }

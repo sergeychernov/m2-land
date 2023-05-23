@@ -28,7 +28,6 @@ export default function ChooseTask() {
 
     useEffect(() => {
         getTasks().then(list => {
-            console.log(list);
             // @ts-ignore
             setTasks(() => {
                 return list?.data?.map((item) => {
@@ -78,7 +77,6 @@ export default function ChooseTask() {
                                         <div className={styles.info}>
                                             {`${item?.name}, ${item?.team}`}
                                         </div>
-                                        <div>status{JSON.stringify(item)}</div>
                                         <Link className={styles.btn} href={`/voting/${item?.id || '1'}`}>Перейти</Link>
                                     </div>
                                 )

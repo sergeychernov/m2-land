@@ -68,7 +68,7 @@ export default function ChooseTask() {
             <h1>Список голосований</h1>
 
             <>
-                {tasks.map((item: any, index: number) => {
+                {tasks.filter((item: any) => item?.status !== "closed").map((item: any, index: number) => {
                     return (
                         <div className={styles.block} key={index}>
                             <div className={styles.info}>

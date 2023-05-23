@@ -35,7 +35,8 @@ export default function ChooseTask() {
                     return {
                         id: item.id,
                         name: item.name,
-                        team: item.team
+                        team: item.team,
+                        status: item.status
                     };
                 })
             });
@@ -49,6 +50,7 @@ export default function ChooseTask() {
             });
         });
     }, []);
+    const filteredTasks = tasks.filter((item: any) => item?.status !== "closed");
 
     return (
         <main
@@ -64,29 +66,39 @@ export default function ChooseTask() {
                     priority
                 />
             </div>
+            {
+                filteredTasks.length ?
+                    <>
+                        <h1>Список голосований</h1>
 
-            <h1>Список голосований</h1>
+                        <>
+                            {filteredTasks.map((item: any, index: number) => {
+                                return (
+                                    <div className={styles.block} key={index}>
+                                        <div className={styles.info}>
+                                            {`${item?.name}, ${item?.team}`}
+                                        </div>
+                                        <div>status{JSON.stringify(item)}</div>
+                                        <Link className={styles.btn} href={`/voting/${item?.id || '1'}`}>Перейти</Link>
+                                    </div>
+                                )
+                            })}
+                        </>
+                    </> :
+                    <>
+                        <h2>Создайте задачу в команде:</h2>
+                        <>
+                            {teams.map((team: string, index: number) => {
+                                return (
+                                    <Link key={team} className={styles.btn} href={`/create-task/${team}`}>{`${team}`}</Link>
+                                )
+                            })}
+                        </>
+                    </>
+            }
 
-            <>
-                {tasks.filter((item: any) => item?.status !== "closed").map((item: any, index: number) => {
-                    return (
-                        <div className={styles.block} key={index}>
-                            <div className={styles.info}>
-                                {`${item?.name}, ${item?.team}`}
-                            </div>
-                            <Link className={styles.btn} href={`/voting/${item?.id || '1'}`}>Перейти</Link>
-                       </div>
-                    )
-                })}
-            </>
-            <h2>Список команд:</h2>
-            <>
-                {teams.map((team: string, index: number) => {
-                    return (  
-                        <Link key={team} className={styles.btn} href={`/create-task/${team}`}>{`Создать задачу в ${team}`}</Link>
-                    )
-                })}
-            </>
+            
+            
         </main>
     );
 }
